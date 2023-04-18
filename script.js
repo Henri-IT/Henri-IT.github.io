@@ -1,13 +1,22 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
-canvas.width = window.innerWidth * (window.screen.width / window.innerWidth);
-canvas.height = window.innerHeight * (window.screen.height / window.innerHeight);
+canvas.width = limitNumberWithinRange(window.innerWidth * ((window.outerWidth -10) / window.innerWidth), 300, 4000);
+    canvas.height = document.body.scrollHeight * ((window.outerWidth -10) / window.innerWidth);
 
-const gridSize = 50; // adjust grid size to your liking
-const dotSize = 2; // adjust dot size to your liking
+const gridSize = 75; // adjust grid size to your liking
+const dotSize = 4; // adjust dot size to your liking
+
+var randomColor = null;
 
 let dots = [];
+
+function limitNumberWithinRange(num, min, max){
+    const MIN = min || 1;
+    const MAX = max || 20;
+    const parsed = parseInt(num)
+    return Math.min(Math.max(parsed, MIN), MAX)
+  }
 
 class Dot {
     constructor(x, y) {
@@ -17,7 +26,7 @@ class Dot {
         this.vy = Math.random() * 1 - 0.5;
     }
     draw() {
-        ctx.fillStyle = 'green';
+        ctx.fillStyle = "black";
         ctx.fillRect(this.x, this.y, dotSize, dotSize);
     }
     update() {
@@ -32,11 +41,58 @@ class Dot {
     }
 }
 
-for (let x = gridSize / 2; x < canvas.width; x += gridSize) {
-    for (let y = gridSize / 2; y < canvas.height; y += gridSize) {
-        dots.push(new Dot(x, y));
+function restart() {
+    for (let x = gridSize / 2; x < canvas.width; x += gridSize) {
+        for (let y = gridSize / 2; y < canvas.height; y += gridSize) {
+            dots.push(new Dot(x, y));
+        }
     }
 }
+restart();
+
+
+window.addEventListener("resize", (event) => {ChangeWindowSize();});
+
+function ChangeWindowSize() {
+    canvas.width = limitNumberWithinRange(window.innerWidth * ((window.outerWidth -10) / window.innerWidth), 300, 4000);
+    canvas.height = document.body.scrollHeight * ((window.outerWidth -10) / window.innerWidth);
+
+    dots.length = 0;
+    restart();
+}
+
+function getRandomArbitrary(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
+}
+
+
+switch(getRandomArbitrary(0, 10)) {
+    default: randomColor = "rgba(170, 255, 100, ";
+        break;
+    case 1:  randomColor = "rgba(120, 120, 255, ";
+        break;
+    case 2:  randomColor = "rgba(100, 255, 255, ";
+        break;
+    case 3:  randomColor = "rgba(100, 255, 170, ";
+        break;
+    case 4:  randomColor = "rgba(230, 255, 255, ";
+        break;
+    case 5:  randomColor = "rgba(125, 230, 255, ";
+        break;
+    case 6:  randomColor = "rgba(255, 130, 130, ";
+        break;
+    case 7:  randomColor = "rgba(255, 125, 200, ";
+        break;
+    case 8:  randomColor = "rgba(100, 205, 250, ";
+        break;
+    case 9:  randomColor = "rgba(255, 150, 160, ";
+        break;
+}
+
+
+document.documentElement.style.setProperty('--accentColor', randomColor.match(/\d+/g).reduce((a, b, i) => (i < 3 ? a + (1 << 8 | +b).toString(16).slice(1) : a), "#"));
 
 function animate() {
     requestAnimationFrame(animate);
@@ -47,17 +103,19 @@ function animate() {
         for (let j = i + 1; j < dots.length; j++) {
             const distX = dots[i].x - dots[j].x;
             const distY = dots[i].y - dots[j].y;
-            const distance = Math.sqrt(distX * distX + distY * distY) * 0.5;
+            const distance = Math.sqrt(distX * distX + distY * distY) * 0.4;
             if (distance < gridSize) {
                 ctx.beginPath();
                 ctx.moveTo(dots[i].x + dotSize / 2, dots[i].y + dotSize / 2);
                 ctx.lineTo(dots[j].x + dotSize / 2, dots[j].y + dotSize / 2);
-                ctx.strokeStyle = "rgba(0, 255, 0, " + 12/distance + ")";
-                ctx.lineWidth = 0.2;
+                ctx.strokeStyle = randomColor + 12/distance + ")";
+                ctx.lineWidth = 0.6;
                 ctx.stroke();
             }
         }
     }
 }
+
+const thumb = document.querySelector("::-webkit-scrollbar-thumb");
 
 animate();
