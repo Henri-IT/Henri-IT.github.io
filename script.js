@@ -11,12 +11,15 @@ var randomColor = null;
 
 let dots = [];
 
+const darknessValue = 150; // change this value as needed
+
+
 function limitNumberWithinRange(num, min, max){
     const MIN = min || 1;
     const MAX = max || 20;
     const parsed = parseInt(num)
     return Math.min(Math.max(parsed, MIN), MAX)
-  }
+}
 
 class Dot {
     constructor(x, y) {
@@ -61,6 +64,15 @@ function ChangeWindowSize() {
     restart();
 }
 
+
+
+
+
+
+
+
+
+
 function getRandomArbitrary(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -92,7 +104,21 @@ switch(getRandomArbitrary(0, 10)) {
 }
 
 
-document.documentElement.style.setProperty('--accentColor', randomColor.match(/\d+/g).reduce((a, b, i) => (i < 3 ? a + (1 << 8 | +b).toString(16).slice(1) : a), "#"));
+// Parse the numeric values from the RGBA string
+const rgbValues = randomColor.match(/\d+/g).map(Number);
+
+// Darken the RGB values by the specified amount
+const darkenedRgbValues = rgbValues.map(value => Math.max(value - darknessValue, 0));
+
+// Convert the darkened RGB values to a hex code
+const hexCode = "#" + rgbValues.map(value => value.toString(16).padStart(2, "0")).join("");
+const hexCodeDark = "#" + darkenedRgbValues.map(value => value.toString(16).padStart(2, "0")).join("");
+
+
+document.documentElement.style.setProperty('--accentColor', hexCode);
+
+document.documentElement.style.setProperty('--accentColorDark', hexCodeDark);
+
 
 function animate() {
     requestAnimationFrame(animate);
@@ -115,7 +141,4 @@ function animate() {
         }
     }
 }
-
-const thumb = document.querySelector("::-webkit-scrollbar-thumb");
-
 animate();
