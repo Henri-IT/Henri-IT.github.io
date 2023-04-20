@@ -57,19 +57,6 @@ function restart() {
 }
 restart();
 
-//wrong solution
-let isScrolling = false;
-window.addEventListener('scroll', function(event) {
-  isScrolling = true;
-  console.log(isScrolling);
-  // clear the timeout so that the resize event isn't triggered while scrolling
-  clearTimeout(timeoutId);
-  // set a timeout to reset the flag after scrolling stops
-  timeoutId = setTimeout(function() {
-    isScrolling = false;
-  }, 100);
-});
-
 
 let previousHeight = window.outerHeight;
 let previousWidth = window.innerWidth;
@@ -77,16 +64,17 @@ let previousWidth = window.innerWidth;
 window.addEventListener("resize", (event) => {ChangeWindowSize();});
 
 function ChangeWindowSize() {
+    if(Math.abs(previousHeight - window.outerHeight) > 0.03 * window.outerHeight || Math.abs(previousWidth - window.innerWidth) > 0.04 * window.innerWidth)
+    {
         canvas.width = document.body.clientWidth;
         canvas.height = document.body.clientHeight;
         dots.length = 0;
         restart();
         previousHeight = window.outerHeight;
         previousWidth = window.innerWidth;
-
+    }
+    
 }
-
-
 
 
 
