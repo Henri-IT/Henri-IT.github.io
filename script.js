@@ -1,8 +1,8 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
-canvas.width = limitNumberWithinRange(window.innerWidth * ((window.outerWidth -10) / window.innerWidth), 300, 4000);
-    canvas.height = document.body.scrollHeight * ((window.outerWidth -10) / window.innerWidth);
+canvas.width = document.body.clientWidth;
+canvas.height = document.body.clientHeight;
 
 const gridSize = 75; // adjust grid size to your liking
 const dotSize = 4; // adjust dot size to your liking
@@ -14,6 +14,9 @@ let dots = [];
 var timeoutId = null;
 
 const darknessValue = 150; // change this value as needed
+
+const footer = document.getElementById("footer");
+
 
 function limitNumberWithinRange(num, min, max){
     const MIN = min || 1;
@@ -74,16 +77,13 @@ let previousWidth = window.innerWidth;
 window.addEventListener("resize", (event) => {ChangeWindowSize();});
 
 function ChangeWindowSize() {
-    if (Math.abs(window.outerHeight - previousHeight) > 0.1 * window.outerHeight || Math.abs(window.innerWidth - previousWidth) > 0.1 * window.innerWidth) {
-        //console.log(Math.abs(window.outerHeight - previousHeight), Math.abs(window.innerWidth - previousWidth));
-        canvas.width = limitNumberWithinRange(window.innerWidth * ((window.outerWidth -10) / window.innerWidth), 300, 4000);
-        canvas.height = document.body.scrollHeight * ((window.outerWidth -10) / window.innerWidth);
-
+        canvas.width = document.body.clientWidth;
+        canvas.height = document.body.clientHeight;
         dots.length = 0;
         restart();
         previousHeight = window.outerHeight;
         previousWidth = window.innerWidth;
-    }
+
 }
 
 

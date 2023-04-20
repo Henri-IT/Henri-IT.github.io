@@ -10,6 +10,7 @@ canvas {
   top: 0;
   left: 0;
   width: 100%;
+  bottom: 100%;
   z-index: -10;
 }
 
@@ -234,7 +235,13 @@ text-align: center;
 }
 
 
-
+footer {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 10px;
+  text-align: center;
+  position: relative;
+}
 
 
 
