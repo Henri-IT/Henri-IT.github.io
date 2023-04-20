@@ -68,18 +68,22 @@ window.addEventListener('scroll', function(event) {
 });
 
 
-let previousHeight = window.innerHeight;
+let previousHeight = window.outerHeight;
+let previousWidth = window.outerWidth;
+
 
 window.addEventListener("resize", (event) => {ChangeWindowSize();});
 
 function ChangeWindowSize() {
-    if (window.innerHeight !== previousHeight)
+    if (window.outerHeight !== previousHeight || window.outerWidth !== previousWidth)
     {
         canvas.width = limitNumberWithinRange(window.innerWidth * ((window.outerWidth -10) / window.innerWidth), 300, 4000);
         canvas.height = document.body.scrollHeight * ((window.outerWidth -10) / window.innerWidth);
 
         dots.length = 0;
         restart();
+        previousHeight = window.outerHeight;
+        previousWidth = window.outerWidth;
     }
 }
 
