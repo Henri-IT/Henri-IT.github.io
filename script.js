@@ -64,7 +64,7 @@ let previousWidth = window.innerWidth;
 window.addEventListener("resize", (event) => {ChangeWindowSize();});
 
 function ChangeWindowSize() {
-    if(Math.abs(previousHeight - window.outerHeight) > 0.03 * window.outerHeight || Math.abs(previousWidth - window.innerWidth) > 0.04 * window.innerWidth)
+    if(Math.abs(previousHeight - window.outerHeight) > 0.05 * window.outerHeight || Math.abs(previousWidth - window.innerWidth) > 0.04 * window.innerWidth)
     {
         canvas.width = document.body.clientWidth;
         canvas.height = document.body.clientHeight;
