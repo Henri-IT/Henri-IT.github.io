@@ -89,7 +89,7 @@ switch(getRandomArbitrary(0, 10)) {
         break;
     case 3:  randomColor = "rgba(100, 255, 170, ";
         break;
-    case 4:  randomColor = "rgba(230, 255, 255, ";
+    case 4:  randomColor = "rgba(133, 255, 192, ";
         break;
     case 5:  randomColor = "rgba(125, 230, 255, ";
         break;

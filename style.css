@@ -78,7 +78,7 @@ canvas {
 .container #projects {
   background-color: rgba(117, 117, 117, 0.178);
   z-index: 1;
-  height: 130vh;
+  height: 110vh;
   border-radius: 10%;
   display: table;
   flex-wrap: wrap;
@@ -98,32 +98,46 @@ canvas {
   gap: 20px;
   border:5px;
   margin: auto;
-  margin-top: 5vh;
   margin-bottom: 10vh;
   flex: 0 0 calc(25% - 20px);
 }
 
-.project-box:hover img {
-  transform: scale(1.05);
-}
-
-.projectItem {
-  height: calc(108px * 2.3);
-  width: calc(192px * 2.3);
-  transition: transform 0.2s linear;
+.project-item {
+  height: calc(108px * 2);
+  width: calc(192px * 2);
   color: var(--accentColor);
   border-radius: 40px;
   overflow: hidden;
-  border: 5px solid var(--accentColor);
+  border: 3px solid var(--accentColor);
+  box-shadow: 0 0 20px 1px var(--accentColor);
   margin-right: 2vw;
   margin-left: 2vw;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+.project-box .project-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px 4px var(--accentColor);
+}
+
+.project-item img{
+  height: calc(108px * 2);
+  width: calc(192px * 2);
+  transform: scale(1.2);
+  transition: transform 0.3s ease;
+}
+
+.project-box .project-item:hover img{
+  transform: scale(1);
+  box-shadow: 0 0 30px 4px var(--accentColor);
+}
+
 
 .project-box .button {
   padding: 1vh 2vw;
 }
 
-.project-box h6 {
+.project-box a {
   position: absolute;
   top: 75%;
   color: #ffffff;
@@ -154,21 +168,25 @@ canvas {
   height: 70vh;
 }
 
+#projects .title-wrapper {
+  height: 30vh;
+}
+
 /* center the maintitle */
 .maintitle {
 text-align: center;
   position: absolute;
-font-size: 8vw;
+  font-size: 8vw;
   margin: 0;
-color: #c4c4c4; /* set text color */
+  color: #c4c4c4; /* set text color */
 }
 
 /* center the subtitle */
 .subtitle {
 text-align: center;
   position: absolute;
-font-size: 3vw;
-color: #c4c4c4; /* set text color */
+  font-size: 3vw;
+  color: #c4c4c4; /* set text color */
   top: calc(50% + 5vw);
   left: 50%;
   transform: translateX(-50%);
@@ -185,12 +203,13 @@ color: #c4c4c4; /* set text color */
   font-size: 3vw;
   text-decoration: none;
   text-align: center;
-  transition: background-color 0.3s ease;
   margin: auto;
+  transition: background-color 0.2s linear, transform 0.2s linear;
 }
 
 .button:hover {
   background-color: rgb(37, 37, 37);
+  transform: scale(1.1);
 }
 
 #button-container {
