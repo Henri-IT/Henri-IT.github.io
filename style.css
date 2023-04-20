@@ -164,6 +164,9 @@ canvas {
   position: relative;
   height: 60vh;
 }
+#contact .subtitle {
+  margin-top: 10vh;
+}
 
 .slides .title-wrapper {
   position: relative;
