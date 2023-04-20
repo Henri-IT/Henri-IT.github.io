@@ -70,13 +70,12 @@ window.addEventListener('scroll', function(event) {
 
 let previousHeight = window.outerHeight;
 let previousWidth = window.innerWidth;
-console.log(previousHeight, previousWidth);
 
 window.addEventListener("resize", (event) => {ChangeWindowSize();});
 
 function ChangeWindowSize() {
-    if (window.outerHeight !== previousHeight || window.innerWidth !== previousWidth)
-    {
+    if (Math.abs(window.outerHeight - previousHeight) > 0.05 * window.outerHeight || Math.abs(window.innerWidth - previousWidth) > 0.05 * window.innerWidth) {
+        //console.log(Math.abs(window.outerHeight - previousHeight), Math.abs(window.innerWidth - previousWidth));
         canvas.width = limitNumberWithinRange(window.innerWidth * ((window.outerWidth -10) / window.innerWidth), 300, 4000);
         canvas.height = document.body.scrollHeight * ((window.outerWidth -10) / window.innerWidth);
 
@@ -84,7 +83,6 @@ function ChangeWindowSize() {
         restart();
         previousHeight = window.outerHeight;
         previousWidth = window.innerWidth;
-        console.log(previousHeight, previousWidth);
     }
 }
 

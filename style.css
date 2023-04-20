@@ -161,7 +161,7 @@ canvas {
   display: flex;
   flex-direction: column;
   position: relative;
-  height: 80vh;
+  height: 60vh;
 }
 
 .slides .title-wrapper {
