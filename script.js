@@ -11,8 +11,9 @@ var randomColor = null;
 
 let dots = [];
 
-const darknessValue = 150; // change this value as needed
+var timeoutId = null;
 
+const darknessValue = 150; // change this value as needed
 
 function limitNumberWithinRange(num, min, max){
     const MIN = min || 1;
@@ -53,15 +54,30 @@ function restart() {
 }
 restart();
 
+let isScrolling = false;
+window.addEventListener('scroll', function(event) {
+  isScrolling = true;
+  console.log(isScrolling);
+  // clear the timeout so that the resize event isn't triggered while scrolling
+  clearTimeout(timeoutId);
+  // set a timeout to reset the flag after scrolling stops
+  timeoutId = setTimeout(function() {
+    isScrolling = false;
+  }, 100);
+});
+
+
 
 window.addEventListener("resize", (event) => {ChangeWindowSize();});
 
 function ChangeWindowSize() {
+    if (!isScrolling) {
     canvas.width = limitNumberWithinRange(window.innerWidth * ((window.outerWidth -10) / window.innerWidth), 300, 4000);
     canvas.height = document.body.scrollHeight * ((window.outerWidth -10) / window.innerWidth);
 
     dots.length = 0;
     restart();
+    }
 }
 
 
