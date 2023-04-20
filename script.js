@@ -54,6 +54,7 @@ function restart() {
 }
 restart();
 
+//wrong solution
 let isScrolling = false;
 window.addEventListener('scroll', function(event) {
   isScrolling = true;
@@ -67,22 +68,20 @@ window.addEventListener('scroll', function(event) {
 });
 
 
+let previousHeight = window.innerHeight;
 
 window.addEventListener("resize", (event) => {ChangeWindowSize();});
 
 function ChangeWindowSize() {
-    if (!isScrolling) {
-    canvas.width = limitNumberWithinRange(window.innerWidth * ((window.outerWidth -10) / window.innerWidth), 300, 4000);
-    canvas.height = document.body.scrollHeight * ((window.outerWidth -10) / window.innerWidth);
+    if (window.innerHeight !== previousHeight)
+    {
+        canvas.width = limitNumberWithinRange(window.innerWidth * ((window.outerWidth -10) / window.innerWidth), 300, 4000);
+        canvas.height = document.body.scrollHeight * ((window.outerWidth -10) / window.innerWidth);
 
-    dots.length = 0;
-    restart();
+        dots.length = 0;
+        restart();
     }
 }
-
-
-
-
 
 
 

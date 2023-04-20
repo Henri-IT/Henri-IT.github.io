@@ -98,6 +98,8 @@ canvas {
   gap: 20px;
   border:5px;
   margin: auto;
+  margin-right: auto;
+  margin-left: auto;
   margin-bottom: 10vh;
   flex: 0 0 calc(25% - 20px);
 }
@@ -105,14 +107,22 @@ canvas {
 .project-item {
   height: calc(108px * 2);
   width: calc(192px * 2);
+  margin-right: 2vw;
+  margin-left: 2vw;
   color: var(--accentColor);
   border-radius: 40px;
   overflow: hidden;
   border: 3px solid var(--accentColor);
   box-shadow: 0 0 20px 1px var(--accentColor);
-  margin-right: 2vw;
-  margin-left: 2vw;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+@media (max-width: 420px) {
+  /* Styles to apply when screen width is below 192*2 */
+  body .project-item{
+    width: 90vw;
+    height: 50.6vw;
+}
 }
 
 .project-box .project-item:hover {
@@ -121,8 +131,8 @@ canvas {
 }
 
 .project-item img{
-  height: calc(108px * 2);
-  width: calc(192px * 2);
+  height: 100%;
+  width: 100%;
   transform: scale(1.2);
   transition: transform 0.3s ease;
 }
