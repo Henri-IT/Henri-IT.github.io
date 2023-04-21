@@ -15,6 +15,10 @@ var timeoutId = null;
 
 const darknessValue = 150; // change this value as needed
 
+const videos = document.querySelectorAll('.project-item video');
+
+
+
 const footer = document.getElementById("footer");
 
 
@@ -72,12 +76,42 @@ function ChangeWindowSize() {
         restart();
         previousHeight = window.innerHeight;
         previousWidth = window.innerWidth;
-    }
-    
+    }   
 }
 
+videos.forEach(video => {
+    video.addEventListener('mouseenter', () => {
+      video.play();
+    });
+  
+    video.addEventListener('mouseleave', () => {
+      video.pause();
+      video.currentTime = 0;
+    });
+});
 
+// Get all the section elements
+const sections = document.getElementsByClassName('slides');
+const titles = document.getElementsByClassName('anchor-button');
 
+// Listen for scroll events on the window object
+window.addEventListener('scroll', () => {updateSection();});
+function updateSection() {
+    // Loop through each section and check if it is in view
+    for (let i = 0; i < sections.length; i++) {
+      titles[i].classList.remove('underline');
+      const section = sections[i];
+      const rect = section.getBoundingClientRect();
+      if (rect.top < 0.5 * window.innerHeight && rect.bottom > 0.5 * window.innerHeight) {
+        // Update the URL with the ID of the current section
+        history.replaceState(null, null, `#${section.id}`);
+        // Show the underline for the title element of the current section
+        titles[i].classList.add('underline');
+      }
+    }
+}
+
+updateSection();
 
 function getRandomArbitrary(min, max) {
     min = Math.ceil(min);
